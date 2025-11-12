@@ -1,0 +1,445 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>My Portfolio | Your Name</title>
+  <meta name="description" content="Responsive personal portfolio showcasing projects, skills and contact." />
+
+  <!-- Fallback font stack -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    /* ----------------------
+       Base + Reset
+       ---------------------- */
+    :root{
+      --bg: #0f1724; /* deep navy */
+      --card: #0b1220;
+      --muted: #94a3b8;
+      --accent: #60a5fa; /* blue-400 */
+      --glass: rgba(255,255,255,0.04);
+      --radius: 14px;
+      --maxwidth: 1100px;
+      --ff: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+    }
+    *{box-sizing: border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:var(--ff);
+      background:linear-gradient(180deg,var(--bg) 0%, #071028 100%);
+      color:#e6eef8;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.45;
+    }
+
+    a{color:inherit;text-decoration:none}
+    img{max-width:100%;height:auto;display:block}
+
+    /* ----------------------
+       Layout & Utilities
+       ---------------------- */
+    .Container{
+      width:calc(100% - 40px);
+      max-width:var(--maxwidth);
+      margin:0 auto;
+      padding:30px 20px;
+    }
+
+    .Topbar{
+      display:flex;align-items:center;justify-content:space-between;
+      gap:16px;padding:12px 0;
+    }
+    .Brand{display:flex;gap:12px;align-items:center;font-weight:700}
+    .Logo{
+      width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg,var(--accent),#7c3aed);
+      display:grid;place-items:center;font-weight:800;color:#061126;font-size:18px
+    }
+
+    /* Navigation */
+    .Nav{
+      display:flex;gap:18px;align-items:center;
+    }
+    .Nav a{padding:8px 12px;border-radius:10px;font-weight:600;color:var(--muted)}
+    .Nav a:hover{background:var(--glass);color:var(--accent)}
+
+    /* Mobile nav button */
+    .Hamburger{display:none;border:0;background:transparent;color:var(--muted);font-size:20px}
+
+    /* Hero */
+    .Hero{
+      display:grid;grid-template-columns:1fr 420px;gap:30px;align-items:center;padding:30px 0 50px
+    }
+    .HeroCard{background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);border-radius:var(--radius);padding:28px;box-shadow:0 6px 30px rgba(2,6,23,0.7)}
+    .Hero h1{margin:0 0 8px;font-size:34px}
+    .Hero p.lead{color:var(--muted);margin:0 0 18px}
+
+    .CTAs{display:flex;gap:12px}
+    .Btn{display:inline-flex;align-items:center;gap:10px;padding:10px 14px;border-radius:12px;font-weight:700;border:1px solid rgba(255,255,255,0.04);cursor:pointer}
+    .Btn--primary{background:linear-gradient(90deg,var(--accent),#7c3aed);color:#061126}
+    .Btn--ghost{background:transparent;color:var(--accent);border:1px dashed rgba(96,165,250,0.25)}
+
+    /* Social icons */
+    .Socials{display:flex;gap:12px;margin-top:18px}
+    .Socials a{opacity:0.85}
+
+    /* Profile card */
+    .Profile{
+      background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
+      padding:22px;border-radius:14px;text-align:center
+    }
+    .Avatar{width:120px;height:120px;border-radius:22px;margin:0 auto 12px;overflow:hidden;box-shadow:0 6px 18px rgba(2,6,23,0.6)}
+    .Avatar img{width:100%;height:100%;object-fit:cover}
+    .Role{color:var(--muted);margin-bottom:6px}
+
+    /* Sections */
+    section{padding:30px 0}
+    .SectionTitle{display:flex;align-items:center;gap:10px;margin-bottom:18px}
+    .SectionTitle h2{margin:0;font-size:20px}
+    .Grid{display:grid;gap:18px}
+
+    /* About + Skills */
+    .AboutGrid{grid-template-columns:1fr 340px}
+    .About p{color:var(--muted)}
+    .Skills{background:var(--card);padding:18px;border-radius:12px}
+    .Skill{display:flex;justify-content:space-between;margin-bottom:10px}
+    .Prog{height:8px;background:linear-gradient(90deg,rgba(255,255,255,0.03),transparent);border-radius:8px;overflow:hidden}
+    .ProgInner{height:100%;border-radius:8px;background:linear-gradient(90deg,var(--accent),#7c3aed);}
+
+    /* Projects */
+    .ProjectsGrid{grid-template-columns:repeat(3,1fr)}
+    .ProjectCard{background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);padding:16px;border-radius:12px}
+    .ProjectCard h3{margin:8px 0}
+    .ProjectTags{display:flex;gap:8px;flex-wrap:wrap}
+    .Tag{font-size:12px;padding:6px 8px;border-radius:8px;background:rgba(255,255,255,0.03);color:var(--muted)}
+
+    /* Contact */
+    .ContactGrid{grid-template-columns:1fr 420px}
+    .Input{width:100%;padding:12px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:inherit}
+    .Textarea{min-height:120px}
+
+    /* Footer */
+    footer{padding:18px 0;color:var(--muted);text-align:center}
+
+    /* Small screens */
+    @media (max-width:900px){
+      .Hero{grid-template-columns:1fr;}
+      .AboutGrid{grid-template-columns:1fr}
+      .ProjectsGrid{grid-template-columns:repeat(2,1fr)}
+      .ProjectsGrid .ProjectCard{min-height:120px}
+      .ContactGrid{grid-template-columns:1fr}
+      .Nav{display:none}
+      .Hamburger{display:inline-flex}
+      .Profile{margin-top:18px}
+    }
+    @media (max-width:520px){
+      .ProjectsGrid{grid-template-columns:1fr}
+      .Logo{width:40px;height:40px}
+      .Hero h1{font-size:26px}
+    }
+
+    /* Tiny animation */
+    .fadeIn{animation:fadeIn .6s ease both}
+    @keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+    /* Utility center */
+    .Center{text-align:center}
+
+    /* Accessibility focus */
+    a:focus,button:focus,input:focus,textarea:focus{outline:3px solid rgba(96,165,250,0.18);outline-offset:3px}
+
+  </style>
+</head>
+<body>
+  <header class="Container">
+    <div class="Topbar">
+      <div class="Brand">
+        <div class="Logo">SS</div>
+        <div>
+          <div style="font-size:14px">SUHAS SINGH HR</div>
+          <div style="font-size:12px;color:var(--muted)">Frontend • Developer • Designer</div>
+        </div>
+      </div>
+
+      <nav class="Nav" aria-label="Primary navigation">
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
+      </nav>
+
+      <div style="display:flex;align-items:center;gap:10px">
+        <button class="Hamburger" id="HamburgerBtn" aria-label="Open menu">☰</button>
+        <button class="Btn" id="ThemeToggle" title="Toggle theme">🌓</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="Container">
+    <section id="home" class="Hero">
+      <div class="HeroCard fadeIn">
+        <h1>Hi, I'm <span style="color:var(--accent)">SUHAS SINGH HR</span></h1>
+        <p class="lead">A passionate frontend developer who builds beautiful, accessible, and responsive web experiences. I love turning ideas into clean, user-friendly products.</p>
+
+        <div class="CTAs">
+          <a class="Btn Btn--primary" href="#projects">See Projects</a>
+          <a class="Btn Btn--ghost" href="#contact">Contact Me</a>
+        </div>
+
+        <div class="Socials" aria-hidden="false" style="margin-top:18px">
+          <a href="#" aria-label="GitHub">GitHub</a>
+          <a href="#" aria-label="LinkedIn">LinkedIn</a>
+          <a href="#" aria-label="Twitter">Twitter</a>
+        </div>
+
+        <div style="margin-top:22px">
+          <strong>Currently:</strong> Building performant web apps and exploring WebAssembly.
+        </div>
+      </div>
+
+      <aside class="Profile fadeIn" aria-label="Profile card">
+        <div class="Avatar">
+          <img src="‪C:\Users\SUHAS\Desktop\Suhas\photo\S4.jpg" alt="Your avatar">
+        </div>
+        <div style="font-weight:700">SUHAS SINGH HR</div>
+        <div class="Role">Frontend Developer</div>
+        <div style="margin-top:12px;color:var(--muted);font-size:14px">Based in Bengaluru, India</div>
+        <div style="margin-top:14px">
+          <a class="Btn Btn--primary" href="#contact">Hire Me</a>
+        </div>
+      </aside>
+    </section>
+
+    <!-- ABOUT + SKILLS -->
+    <section id="about">
+      <div class="SectionTitle">
+        <h2>About</h2>
+      </div>
+
+      <div class="Grid AboutGrid">
+        <div class="About">
+          <div class="HeroCard">
+            <p>I'm a frontend developer with a focus on modern JavaScript, performance, and accessibility. I build production-ready user interfaces using frameworks like React and Svelte and enjoy designing polished experiences with attention to detail.</p>
+
+            <ul style="margin-top:12px;color:var(--muted)">
+              <li> working on web applications</li>
+              <li>Open-source contributor and mentor</li>
+              <li>Interested in UI performance and developer experience</li>
+            </ul>
+          </div>
+        </div>
+
+        <aside>
+          <div class="Skills">
+            <div style="font-weight:700;margin-bottom:12px">Skills</div>
+            <div class="Skill">
+              <div>HTML &amp; CSS</div>
+              <div style="width:120px; text-align:right">95%</div>
+            </div>
+            <div class="Prog" aria-hidden>
+              <div class="ProgInner" style="width:95%"></div>
+            </div>
+
+            <div class="Skill" style="margin-top:8px">
+              <div>JavaScript</div>
+              <div style="width:120px; text-align:right">92%</div>
+            </div>
+            <div class="Prog" aria-hidden>
+              <div class="ProgInner" style="width:92%"></div>
+            </div>
+
+            <div class="Skill" style="margin-top:8px">
+              <div>React / Svelte</div>
+              <div style="width:120px; text-align:right">88%</div>
+            </div>
+            <div class="Prog" aria-hidden>
+              <div class="ProgInner" style="width:88%"></div>
+            </div>
+
+            <div style="margin-top:12px;color:var(--muted);font-size:13px">Also: TypeScript, Node.js, Testing, CI/CD</div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects">
+      <div class="SectionTitle">
+        <h2>Projects</h2>
+      </div>
+
+      <div class="Grid ProjectsGrid">
+        <article class="ProjectCard">
+          <img src="https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?q=80&w=1200&auto=format&fit=crop" alt="Project screenshot">
+          <h3>Project One</h3>
+          <p style="color:var(--muted);margin:6px 0">A short description of your project and what tech you used.</p>
+          <div class="ProjectTags">
+            <span class="Tag">React</span>
+            <span class="Tag">Node</span>
+            <span class="Tag">Vercel</span>
+          </div>
+        </article>
+
+        <article class="ProjectCard">
+          <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1200&auto=format&fit=crop" alt="Project screenshot">
+          <h3>Project Two</h3>
+          <p style="color:var(--muted);margin:6px 0">A short description of your project and what tech you used.</p>
+          <div class="ProjectTags">
+            <span class="Tag">Svelte</span>
+            <span class="Tag">Tailwind</span>
+          </div>
+        </article>
+
+        <article class="ProjectCard">
+          <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1200&auto=format&fit=crop" alt="Project screenshot">
+          <h3>Project Three</h3>
+          <p style="color:var(--muted);margin:6px 0">A short description of your project and what tech you used.</p>
+          <div class="ProjectTags">
+            <span class="Tag">Static</span>
+            <span class="Tag">Design</span>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact">
+      <div class="SectionTitle"><h2>Contact</h2></div>
+
+      <div class="Grid ContactGrid">
+        <div>
+          <div class="HeroCard">
+            <form id="ContactForm">
+              <div style="display:flex;gap:10px;margin-bottom:10px">
+                <input class="Input" type="text" id="Name" name="name" placeholder="Your name" required>
+                <input class="Input" type="email" id="Email" name="email" placeholder="Your email" required>
+              </div>
+
+              <input class="Input" type="text" id="Subject" name="subject" placeholder="Subject" style="margin-bottom:10px">
+              <textarea class="Input Textarea" id="Message" name="message" placeholder="Your message" required></textarea>
+
+              <div style="margin-top:12px;display:flex;gap:10px;align-items:center">
+                <button type="submit" class="Btn Btn--primary">Send Message</button>
+                <div id="FormMsg" style="color:var(--muted)"></div>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <aside>
+          <div class="HeroCard Center">
+            <h3>Get in touch</h3>
+            <p style="color:var(--muted)">Email: <a href="mailto:suhassinghhr10@gmail.com">suhassinghhr10@gmail.com</a></p>
+            <p style="color:var(--muted)">Location: Bengaluru, India</p>
+
+            <div style="margin-top:12px">
+              <a class="Btn Btn--ghost" href="#">Download Resume</a>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="Container">© <span id="CopyrightYear"></span> SUHAS SINGH HR — Built with HTML, CSS & JS</div>
+  </footer>
+
+  <script>
+    // ----------------------
+    // Tiny JS interactions
+    // ----------------------
+    (function(){
+      // nav smooth scroll
+      document.querySelectorAll('a[href^="#"]').forEach(function(el){
+        el.addEventListener('click', function(e){
+          var href = el.getAttribute('href');
+          if(href.startsWith('#')){
+            var target = document.querySelector(href);
+            if(target){
+              e.preventDefault();
+              target.scrollIntoView({behavior:'smooth',block:'start'});
+            }
+          }
+        });
+      });
+
+      // mobile nav toggle (simple)
+      var hamb = document.getElementById('HamburgerBtn');
+      hamb.addEventListener('click', function(){
+        var nav = document.querySelector('.Nav');
+        if(nav.style.display === 'flex'){
+          nav.style.display = '';
+        } else {
+          nav.style.display = 'flex';
+          nav.style.flexDirection = 'column';
+          nav.style.position = 'absolute';
+          nav.style.right = '20px';
+          nav.style.top = '70px';
+          nav.style.background = 'linear-gradient(180deg, rgba(255,255,255,0.02), transparent)';
+          nav.style.padding = '12px';
+        }
+      });
+
+      // theme toggle (prefers dark by default)
+      var themeBtn = document.getElementById('ThemeToggle');
+      themeBtn.addEventListener('click', function(){
+        if(document.documentElement.hasAttribute('data-light')){
+          document.documentElement.removeAttribute('data-light');
+        } else {
+          document.documentElement.setAttribute('data-light','');
+        }
+      });
+
+      // apply simple light theme styles when data-light present
+      var observer = new MutationObserver(function(){
+        if(document.documentElement.hasAttribute('data-light')){
+          document.documentElement.style.setProperty('--bg','#f6f9ff');
+          document.documentElement.style.setProperty('--card','#ffffff');
+          document.documentElement.style.setProperty('--muted','#475569');
+          document.documentElement.style.setProperty('--accent','#0ea5e9');
+          document.documentElement.style.setProperty('--glass','rgba(2,6,23,0.03)');
+          document.documentElement.style.setProperty('color','#061126');
+        } else {
+          document.documentElement.style.setProperty('--bg','#0f1724');
+          document.documentElement.style.setProperty('--card','#0b1220');
+          document.documentElement.style.setProperty('--muted','#94a3b8');
+          document.documentElement.style.setProperty('--accent','#60a5fa');
+          document.documentElement.style.setProperty('--glass','rgba(255,255,255,0.04)');
+          document.documentElement.style.removeProperty('color');
+        }
+      });
+      observer.observe(document.documentElement,{attributes:true});
+
+      // contact form: simple validation + fake send
+      var form = document.getElementById('ContactForm');
+      var formMsg = document.getElementById('FormMsg');
+      form.addEventListener('submit', function(e){
+        e.preventDefault();
+        var name = document.getElementById('Name').value.trim();
+        var email = document.getElementById('Email').value.trim();
+        var message = document.getElementById('Message').value.trim();
+        if(!name || !email || !message){
+          formMsg.textContent = 'Please fill required fields.';
+          return;
+        }
+        formMsg.textContent = 'Sending...';
+        // simulate send
+        setTimeout(function(){
+          formMsg.textContent = 'Thanks — message sent (demo).';
+          form.reset();
+        },800);
+      });
+
+      // copyright year
+      document.getElementById('CopyrightYear').textContent = new Date().getFullYear();
+
+    })();
+  </script>
+</body>
+</html>
